@@ -1,0 +1,47 @@
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var num1, num2 float64
+	var operator string
+
+	fmt.Println("Simple CLI Calculator")
+	fmt.Println("---------------------")
+	fmt.Print("Enter first number: ")
+	fmt.Scanln(&num1)
+
+	fmt.Print("Enter an operator (+, -, *, /): ")
+	fmt.Scanln(&operator)
+
+	fmt.Print("Enter second number: ")
+	fmt.Scanln(&num2)
+
+	result, err := calculate(num1, num2, operator)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Printf("Result: %.2f\n", result)
+	}
+}
+
+// Function to perform arithmetic calculations
+func calculate(num1, num2 float64, operator string) (float64, error) {
+	switch operator {
+	case "+":
+		return num1 + num2, nil
+	case "-":
+		return num1 - num2, nil
+	case "*":
+		return num1 * num2, nil
+	case "/":
+		if num2 == 0 {
+			return 0, fmt.Errorf("division by zero is not allowed")
+		}
+		return num1 / num2, nil
+	default:
+		return 0, fmt.Errorf("invalid operator")
+	}
+}
